@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title></title>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+	<meta charset="utf-8">
+        <title>JQuery Mobile AJAX</title>
+        <link rel="stylesheet" href="jquery.mobile-1.0a2.min.css" />
+		<link rel="stylesheet" href="dareV1.css" />
+		<link href='style.css' rel='stylesheet'/>
+		<script src="swipe.js"></script>
+        <script src="jquery-1.4.4.min.js"></script>
+        <script src="jquery.mobile-1.0a2.min.js"></script>
+        <script type="text/javascript" src="jquery.json-1.3.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova-1.7.0.js"></script>
+	<script type="text/javascript">
+	//send image
+	$(document).ready(function() {
+		function sendImage(src) {
+			
+			// Set the image source [library || camera]
+			src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
+			
+			// Aquire the image -> Phonegap API
+			navigator.camera.getPicture(success, fail, {quality: 45, sourceType: src});
+			
+			// Successfully aquired image data -> base64 encoded string of the image file
+			function success(imageData) {
+				var url = 'http://www.mysite.com/API/mobileImageUpload.php';
+				var params = {image: imageData};
+				
+				// send the data
+				$.post(url, params, function(data) {
+					
+					// Display the selected image on send complete
+					$('#image').attr('src', 'data:image/jpeg;base64,' + params['image']);
+					
+				});
+			}
+			
+			function fail(message) { alert(message); }
+		}
+		
+		$('.send-image').click(function () { sendImage($(this).val()); }); 
+	});
+	
+	</script>
+    <script type="text/javascript">
+			var	orgurl="http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?UserAccount_Profile_Create&BuddyApplicationName=DareDo&BuddyApplicationPassword=FFFB339B-97FA-4D18-99E5-9243467E6CDF";
+			var	addjoin="&";
+			var	username="NewUserName=";
+			var	pwd="UserSuppliedPassword=";
+			var	gender="NewUserGender=male";
+			var	age="UserAge=24";
+			var	email="NewUserEmail=t.shaoming@gmail.com";
+			var	locate="FuzzLocationEnabled=1";
+			var	celeb="CelebModeEnabled=0";
+			var	tag="ApplicationTag=";
+
+		$(document).ready(function(){
+
+              $("#login").click(function() {
+              
+				var unamelogin = $.trim($("#unamelogin").val());
+				var pwdlogin = $.trim($("#pwdlogin").val());
+				var	buddyurl=orgurl+addjoin+username+addjoin+unamelogin+addjoin+pwd+addjoin+pwdloginaddjoin;
+                                });
+
+	 
+			$("#useJSONP").click(function(){
+				$.ajax({
+					url: buddyurl,
+					dataType: 'jsonp',
+					jsonp: 'callback',
+					success: function(){
+					}
+				});
+			});
+	 
+		});
+		    function jsonpCallback(data){
+        $('#jsonpResult').text(data.message);
+    }
+    </script>
+    <script type="text/javascript">
+
+	//Here's the start of code for camera
+	//Take from http://wiki.phonegap.com/w/page/39539478/Upload%20an%20Image%20to%20a%20PHP%20Script
+	function onBodyLoad()
+	{		
+		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+	
+	/* When this function is called, Cordova has been initialized and is ready to roll */
+	function onDeviceReady()
+	{
+//		navigator.notification.alert("Cordova is working")
+	}
+    
+    </script>
+    
+  </head>
+  <body onload="onBodyLoad()">
+
+ 		<div data-role="page" id="Landing">	
+			<div data-role="content">
+				<div>
+				</br>
+				</br>
+				</br>
+				</br>
+				</br>
+				<a href="#Challenges"><img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/darelogo.png" height="170" width="170" />
+				</div>
+			</div>
+		</div>
+
+
+ 		<div data-role="page" id="FBAuth">	
+			<div data-role="content">
+				<div style="text-align:center;"><p>Facebook Authenticate</p></div>
+				<form action="FBAuth.php" method="post">
+					<label for="FBAuth">FBAuth</label></br>
+					<input  value="username" type="text" name="UserName" id="UserName" data-mini="true" />
+					<input value="pwd" type="pwd" name="Pwd" id="Pwd" data-mini="true" />
+				</form>
+				<div style="text-align:center;">
+					<a href="#Challenges">Skip this</a>
+				</div>
+			</div>
+		</div>
+
+ 		<div data-role="page" id="SignUp">	
+				<form action="SignUp.php" method="post">
+					<label for="SignUp">SignUp</label></br>
+					<input  value="FirstName" type="text" name="FirstName" id="FirstName" data-mini="true" />
+					<input value="LastName" type="text" name="LastName" id="LastName" data-mini="true" />
+					<input  value="username" type="text" name="UserName" id="UserName" data-mini="true" />
+					<input  value="Email" type="text" name="Email" id="Email" data-mini="true" />
+					<input value="pwd" type="pwd" name="Pwd" id="Pwd" data-mini="true" />
+					<input type="submit" value="Submit" />
+				</form>		
+				<div style="text-align:center;">
+					<a href="#Challenges">Skip this</a>
+				</div>
+		</div>
+		
+ 		<div data-role="page" id="Challenges" data-add-back-btn="false" style="background-image:url(http://mobile.hoodhelp.in/assets/challenges/browse/background.png)">		 
+		<div data-role="header">
+				  	<h3 style="display: inline text-align:center">Challenges</h3>
+		<div data-role="navbar">
+					 <ul>
+						<li><a href="#Challenges" class="ui-btn-active">Challenges</a></li>
+						<li><a href="#Profile">Profile</a></li>
+						<li><a href="#Brands">Brands</a></li>
+						<li><a href="#NonProfit">Non Profit</a></li>
+						<li><a href="#LeadershipBoard">Leadership Board</a></li>
+					</ul>
+			  </div>
+		  </div>
+		  
+			<div data-role="content">
+<span id='slider2' class='swipe'>
+  <ul>
+    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
+    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
+    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
+  </ul>
+</span>
+
+				<span>
+				<a href="#ritz"><img style="display: inline; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="290" width="290" />
+				</span>
+
+<span id='slider2' class='swipe' style='width:250px'>
+  <ul>
+    <li style='display:block'><div>1</div></li>
+    <li style='display:none'><div>2</div></li>
+    <li style='display:none'><div>3</div></li>
+  </ul>
+</span>
+
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenge_r2_c2.png" height="290" width="290" />				
+				</div>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r3_c1.png" height="290" width="290" />				
+				</div>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenge_r1_c1.png" height="290" width="290" />				
+				</div>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r5_c1.png" height="290" width="290" />				
+				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="ritz">		 
+		  <div data-role="header">
+					  	<h3>Puttin on the Ritz</h3>
+		  </div>
+			<div data-role="content">
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritznoarrow.png" height="220" width="290" />				
+				</div>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzinfo.png" height="130" width="290" />				
+				</div>
+				<a href="#ritzchallenge" data-role="button" data-icon="delete">Accept</a>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzchallengecomment.png" height="350" width="290" />				
+				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="ritzchallenge">		 
+		  <div data-role="header">
+					  	<h3>Puttin on the Ritz</h3>
+		  </div>
+			<div data-role="content">
+				<div>
+				<a href="http://www.youtube.com/watch?v=Wja7lNmF0R4"><img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzimage_r2_c2.png" height="220" width="290" /></a>
+				</div>
+		        <input type="button" class="send-image" value="Take a Photo or Video" />
+		        <input type="button" class="send-image" value="Library" />
+		        <input type="button" class="send-image" value="Save or Later" />
+			</div>
+		</div>
+
+		
+		<div data-role="page" id="Profile">		 
+		  <div data-role="header">
+					  	<h3>Profile</h3>
+				<div data-role="navbar">
+					 <ul>
+						<li><a href="#Challenges">Challenges</a></li>
+						<li><a href="#Profile" class="ui-btn-active">Profile</a></li>
+						<li><a href="#Brands">Brands</a></li>
+						<li><a href="#NonProfit">Non Profit</a></li>
+						<li><a href="#LeadershipBoard">Leadership Board</a></li>
+					</ul>
+			  </div>
+		  </div>
+			<div data-role="content">
+				<div>
+					User photo</br>
+					User Name</br>
+					Whatever bullshit</br>
+				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="Brands">
+		 
+		  <div data-role="header">
+					  	<h3>Brands</h3>
+				<div data-role="navbar">
+					 <ul>
+						<li><a href="#Challenges">Challenges</a></li>
+						<li><a href="#Profile">Profile</a></li>
+						<li><a href="#Brands" class="ui-btn-active">Brands</a></li>
+						<li><a href="#NonProfit">Non Profit</a></li>
+						<li><a href="#LeadershipBoard">Leadership Board</a></li>
+					</ul>
+			  </div>
+		  </div>
+		  
+			<div data-role="content">
+				<div>
+					<div style="text-align:center;"><a href="#HomeDepot">Home Depot</a></div>
+					<div style="text-align:center;"><a href="#Kraft">Kraft</a></div>
+					<div style="text-align:center;"><a href="#Nike">Nike</a></div>					
+				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="NonProfit">
+		  <div data-role="header">
+					  	<h3>Non Profit</h3>
+				<div data-role="navbar">
+					 <ul>
+						<li><a href="#Challenges">Challenges</a></li>
+						<li><a href="#Profile">Profile</a></li>
+						<li><a href="#Brands">Brands</a></li>
+						<li><a href="#NonProfit" class="ui-btn-active">Non Profit</a></li>
+						<li><a href="#LeadershipBoard">Leadership Board</a></li>
+					</ul>
+			  </div>
+		  </div>
+			<div data-role="content">
+				<div>
+				</div>
+			</div>
+		</div>
+
+		<div data-role="page" id="LeadershipBoard">
+		  <div data-role="header">
+					  	<h3>Leadership Board</h3>
+				<div data-role="navbar">
+					 <ul>
+						<li><a href="#Challenges">Challenges</a></li>
+						<li><a href="#Profile">Profile</a></li>
+						<li><a href="#Brands">Brands</a></li>
+						<li><a href="#NonProfit">Non Profit</a></li>
+						<li><a href="#LeadershipBoard"  class="ui-btn-active">Leadership Board</a></li>
+					</ul>
+			  </div>
+		  </div>
+			<div data-role="content">
+				<div>
+				</div>
+			</div>
+		</div>
+
+     <script>
+new Swipe(document.getElementById('slider'));
+new Swipe(document.getElementById('slider2'));
+var slider3 = new Swipe(document.getElementById('slider3'));
+var slider4 = new Swipe(document.getElementById('slider4'));
+</script>
+  </body>
+</html>
