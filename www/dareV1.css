@@ -1,6 +1,10 @@
-//centering elements
-.center-img{
-margin: 0 auto;
+.ClickableButtons
+{
+	overflow:hidden;
+	margin:0px 0px 0px 0px;
 }
-
- 
+.ClickableButtons img
+{
+	float:left;
+    margin:0px;
+}

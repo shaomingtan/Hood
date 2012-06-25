@@ -7,8 +7,8 @@
 	<meta charset="utf-8">
         <title>JQuery Mobile AJAX</title>
         <link rel="stylesheet" href="jquery.mobile-1.0a2.min.css" />
-		<link rel="stylesheet" href="dareV1.css" />
 		<link href='style.css' rel='stylesheet'/>
+		<link rel="stylesheet" type="text/css" href="dareV1.css" />
 		<script src="swipe.js"></script>
         <script src="jquery-1.4.4.min.js"></script>
         <script src="jquery.mobile-1.0a2.min.js"></script>
@@ -46,6 +46,7 @@
 	});
 	
 	</script>
+
     <script type="text/javascript">
 			var	orgurl="http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?UserAccount_Profile_Create&BuddyApplicationName=DareDo&BuddyApplicationPassword=FFFB339B-97FA-4D18-99E5-9243467E6CDF";
 			var	addjoin="&";
@@ -83,6 +84,15 @@
         $('#jsonpResult').text(data.message);
     }
     </script>
+
+   <script>
+		$(function () {
+		  $(".Clickable").live('click', function() {
+			$(this).css('height', "10px");  
+		  });
+		});​
+   </script>
+
     <script type="text/javascript">
 
 	//Here's the start of code for camera
@@ -160,39 +170,66 @@
 			  </div>
 		  </div>
 		  
-			<div data-role="content">
-<span id='slider2' class='swipe'>
-  <ul>
-    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
-    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
-    <li style='display:inline'><div style="width: 310px; height: 310px;"><img src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="310" width="310" /></div></li>
-  </ul>
+			<div data-role="content" style="width: 320px; height: 320px; margin:-10px 0px 0px -10px">
+<span>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/puttin_on_the_ritz.png" height="50" width="320" />
+	</div>
+	<div id='slider1' class='swipe' onclick="window.location ='#ritz'">
+	  <ul>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li>
+	</div>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritzchallengedesc.png" height="50" width="320" />
+	</div>
+	<div class='ClickableButtons'>	
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />	
+	</div>
 </span>
 
-				<span>
-				<a href="#ritz"><img style="display: inline; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r1_c1.png" height="290" width="290" />
-				</span>
-
-<span id='slider2' class='swipe' style='width:250px'>
-  <ul>
-    <li style='display:block'><div>1</div></li>
-    <li style='display:none'><div>2</div></li>
-    <li style='display:none'><div>3</div></li>
-  </ul>
+<span>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobiTop.png" height="50" width="320" />
+	</div>
+	<div id='slider2' class='swipe' onclick="window.location ='#ritz'">
+	  <ul>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li>
+	</div>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobimid.png" height="50" width="320" />
+	</div>
+	<div class='ClickableButtons'>	
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />	
+	</div>
 </span>
 
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenge_r2_c2.png" height="290" width="290" />				
-				</div>
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r3_c1.png" height="290" width="290" />				
-				</div>
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenge_r1_c1.png" height="290" width="290" />				
-				</div>
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/browse/challenges_r5_c1.png" height="290" width="290" />				
-				</div>
+<span>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdowntop.png" height="50" width="320" />
+	</div>
+	<div id='slider3' class='swipe' onclick="window.location ='#ritz'">
+	  <ul>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li>
+		<li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li>
+	</div>
+	<div>
+		<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownmid.png" height="50" width="320" />
+	</div>
+	<div class='ClickableButtons'>	
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+			<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />	
+	</div>
+</span>
 			</div>
 		</div>
 
@@ -314,10 +351,9 @@
 		</div>
 
      <script>
-new Swipe(document.getElementById('slider'));
+new Swipe(document.getElementById('slider1'));
 new Swipe(document.getElementById('slider2'));
-var slider3 = new Swipe(document.getElementById('slider3'));
-var slider4 = new Swipe(document.getElementById('slider4'));
+new Swipe(document.getElementById('slider3'));
 </script>
   </body>
 </html>
