@@ -41,6 +41,20 @@
 			
 			function fail(message) { alert(message); }
 		}
+                      
+        function getPicture_Success(imageData)
+        { 
+            $.get("http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?Pictures_Photo_Add", { 
+                  BuddyApplicationName: "DareApp", 
+                  BuddyApplicationPassword: "0F5CD278-E31F-4DE7-8466-98F5EFAD82D1",
+                  UserToken: "UT-86203995-50f5-4663-a376-e20e99ba4692",
+                  bytesFullPhotoData: imageData,
+                  AlbumID: "699355",
+                  PhotoComment: "demo",
+                  Latitude: "47.36",
+                  Longitude: "122.19"
+            });
+        } 
 		
 		$('.send-image').click(function () { sendImage($(this).val()); }); 
 	});
