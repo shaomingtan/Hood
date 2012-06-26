@@ -19,8 +19,8 @@
 	$(document).ready(function() {
 		function sendImage(src) {
 			
-			// Set the image source [library || camera]
-			src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
+			// Set the image source [choose a photo || take a photo]
+			src = (src == 'choose a photo') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
 			
 			// Aquire the image -> Phonegap API
 			navigator.camera.getPicture(
@@ -60,7 +60,8 @@
         function uploadPicture_Success(pictureId)
         {
            // Todo: Save the image info somewhere
-           navigator.notification.alert("File Uploaded: " + pictureId);  
+           navigator.notification.alert("File Uploaded: " + pictureId);
+           LoadContent();
         }
         function uploadPicture_Error(error){}
 		
@@ -116,6 +117,44 @@
 		});​
    </script>
 
+		<script>
+		//This function will load content from buddy.com
+        function LoadContent()
+        {                                   
+            var request = $.ajax({
+                 type: "POST",
+                 url: "http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?Pictures_PhotoAlbum_Get",
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                 dataType: "text",
+                 success: ProfilePhoto_GetAll_Success,
+                 error: ProfilePhoto_GetAll_Error,                
+                 data: {
+                     BuddyApplicationName:"DareApp",
+                     BuddyApplicationPassword:"0F5CD278-E31F-4DE7-8466-98F5EFAD82D1",
+                     UserToken:"UT-86203995-50f5-4663-a376-e20e99ba4692",
+                     UserProfileID:"1281550",
+                     PhotoAlbumID:"699355"
+                 }
+             });                                            
+        };
+        function ProfilePhoto_GetAll_Success(x)
+        {
+			var i=0;
+			x = $.parseJSON(x);			
+			while(x.data[i].fullPhotoURL){
+				var url=x.data[i].fullPhotoURL;
+				var strfront = '<div><img style="display: block; margin-left: auto; margin-right: auto" src="';
+				var strback = '" height="450" width="320" /></div><br>';
+				var final;
+				final = strfront + url + strback ;
+				$('.DynamicContent').after(final);
+				i++;
+			};
+        }
+        function ProfilePhoto_GetAll_Error(error){}
+
+		</script>
+
     <script type="text/javascript">
 
 	//Here's the start of code for camera
@@ -123,6 +162,7 @@
 	function onBodyLoad()
 	{		
 		document.addEventListener("deviceready", onDeviceReady, false);
+		LoadContent();
 	}
 	
 	/* When this function is called, Cordova has been initialized and is ready to roll */
@@ -187,16 +227,17 @@
 	<div data-role="content" style="width: 320px; margin:-10px 0px 0px -10px">
 		<span>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/puttin_on_the_ritz.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/longReceipt/title2.png" height="50" width="320" />
 			</div>
 			<div id='slider1' class='swipe'>
 			  <ul>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritz1.png" height="150" width="320" /></li></a>
+				<a href="#LongReceiptLottery"><li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/main2.png" height="210" width="320" /></li></a>
+				<a href="#LongReceiptLottery"><li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission1.jpeg" height="210" width="320" /></li></a>
+				<a href="#LongReceiptLottery"><li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission2.jpeg" height="210" width="320" /></li></a>
+				<a href="#LongReceiptLottery"><li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission3.jpeg" height="210" width="320" /></li></a>
 			</div>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/ritzchallengedesc.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/longReceipt/desc2.png" height="50" width="320" />
 			</div>
 			<div class='ClickableButtons'>  	
 				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
@@ -204,19 +245,19 @@
 				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />  
 			</div>
 		</span>
-
+		<br>
 		<span>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobiTop.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/title5.png" height="50" width="320" />
 			</div>
 			<div id='slider2' class='swipe'>
 			  <ul>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobi.png" height="150" width="320" /></li></a>
+				<a href="#fullflavoredShoppin"><li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/main5.png" height="210" width="320" /></li></a>
+				<a href="#fullflavoredShoppin"><li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/submission1.jpeg" height="210" width="320" /></li></a>
+				<a href="#fullflavoredShoppin"><li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/submission2.jpeg" height="210" width="320" /></li></a>
 			</div>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/ryobimid.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/desc5.png" height="50" width="320" />
 			</div>
 			<div class='ClickableButtons'>  	
 				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
@@ -224,19 +265,79 @@
 				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />  
 			</div>
 		</span>
-
+		<br>
 		<span>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdowntop.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/duckface/title3.png" height="50" width="320" />
 			</div>
 			<div id='slider3' class='swipe'>
 			  <ul>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li></a>
-				<a href="#ritz"><li><img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownpic.png" height="150" width="320" /></li></a>
+				<a href="#duckface"><li><img src="http://mobile.hoodhelp.in/challenges/duckface/main3.png" height="210" width="320" /></li></a>
+				<a href="#duckface"><li><img src="http://mobile.hoodhelp.in/challenges/duckface/submission1.jpeg" height="210" width="320" /></li></a>
+				<a href="#duckface"><li><img src="http://mobile.hoodhelp.in/challenges/duckface/submission2.jpeg" height="210" width="320" /></li></a>
 			</div>
 			<div>
-				<img src="http://mobile.hoodhelp.in/assets/challenges/browse/new/mowdownmid.png" height="50" width="320" />
+				<img src="http://mobile.hoodhelp.in/challenges/duckface/desc3.png" height="50" width="320" />
+			</div>
+			<div class='ClickableButtons'>  	
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />  
+			</div>
+		</span>
+		<br>
+		<span>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/title6.png" height="50" width="320" />
+			</div>
+			<div id='slider4' class='swipe'>
+			  <ul>
+				<a href="#Gooddeedshoppin"><li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/main6.png" height="210" width="320" /></li></a>
+				<a href="#Gooddeedshoppin"><li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/submission1.jpeg" height="210" width="320" /></li></a>
+				<a href="#Gooddeedshoppin"><li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/submission2.jpeg" height="210" width="320" /></li></a>
+			</div>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/desc6.png" height="50" width="320" />
+			</div>
+			<div class='ClickableButtons'>  	
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />  
+			</div>
+		</span>
+		<br>
+		<span>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/title4.png" height="50" width="320" />
+			</div>
+			<div id='slider5' class='swipe'>
+			  <ul>
+				<a href="#twitterScavengerHunt"><li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li></a>
+				<a href="#twitterScavengerHunt"><li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li></a>
+				<a href="#twitterScavengerHunt"><li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li></a>
+			</div>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/desc4.png" height="50" width="320" />
+			</div>
+			<div class='ClickableButtons'>  	
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/commentsmall.png" height="50" width="107" />
+				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/favoritesmall.png" height="50" width="106" />  
+			</div>
+		</span>
+		<br>
+		<span>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/title1.png" height="50" width="320" />
+			</div>
+			<div id='slider6' class='swipe'>
+			  <ul>
+				<a href="#guessYourSavings"><li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li></a>
+				<a href="#guessYourSavings"><li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li></a>
+				<a href="#guessYourSavings"><li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li></a>
+			</div>
+			<div>
+				<img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/desc1.png" height="50" width="320" />
 			</div>
 			<div class='ClickableButtons'>  	
 				<img class='Clickable' src="http://mobile.hoodhelp.in/assets/challenges/drilldown/sharelarge.png" height="50" width="107" />
@@ -247,118 +348,124 @@
 	</div>
 </div>
 
-		<div data-role="page" id="ritz">		 
+		<div data-role="page" id="LongReceiptLottery">		 
 		  <div data-role="header">
-					  	<h3>Puttin on the Ritz</h3>
+					  	<h3>Long Receipt</h3>
 		  </div>
-			<div data-role="content">
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider7' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/main2.png" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission1.jpeg" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission2.jpeg" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/longReceipt/submission3.jpeg" height="210" width="320" /></li>
+			</div>
 				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritznoarrow.png" height="220" width="290" />				
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
 				</div>
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzinfo.png" height="130" width="290" />				
-				</div>
-				<a href="#ritzchallenge" data-role="button" data-icon="delete">Accept</a>
-				<div>
-				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzchallengecomment.png" height="350" width="290" />				
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
 				</div>
 			</div>
 		</div>
-
-		<div data-role="page" id="ritzchallenge">		 
+		<div data-role="page" id="fullflavoredShoppin">		 
 		  <div data-role="header">
-					  	<h3>Puttin on the Ritz</h3>
+					  	<h3>Full Flavored</h3>
 		  </div>
-			<div data-role="content">
-				<div>
-				<a href="http://www.youtube.com/watch?v=Wja7lNmF0R4"><img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/assets/challenges/drilldown/ritzimage_r2_c2.png" height="220" width="290" /></a>
-				</div>
-		        <input type="button" class="send-image" value="camera" />
-		        <input type="button" class="send-image" value="library" />
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider8' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/main5.png" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/submission1.jpeg" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/full-flavoredShoppin/submission2.jpeg" height="210" width="320" /></li>
 			</div>
-		</div>
-
-		
-		<div data-role="page" id="Profile">		 
-		  <div data-role="header">
-					  	<h3>Profile</h3>
-				<div data-role="navbar">
-					 <ul>
-						<li><a href="#Challenges">Challenges</a></li>
-						<li><a href="#Profile" class="ui-btn-active">Profile</a></li>
-						<li><a href="#Brands">Brands</a></li>
-						<li><a href="#NonProfit">Non Profit</a></li>
-						<li><a href="#LeadershipBoard">Leadership Board</a></li>
-					</ul>
-			  </div>
-		  </div>
-			<div data-role="content">
 				<div>
-					User photo</br>
-					User Name</br>
-					Whatever bullshit</br>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
+				</div>
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
 				</div>
 			</div>
 		</div>
-
-		<div data-role="page" id="Brands">
-		 
+		<div data-role="page" id="duckface">		 
 		  <div data-role="header">
-					  	<h3>Brands</h3>
-				<div data-role="navbar">
-					 <ul>
-						<li><a href="#Challenges">Challenges</a></li>
-						<li><a href="#Profile">Profile</a></li>
-						<li><a href="#Brands" class="ui-btn-active">Brands</a></li>
-						<li><a href="#NonProfit">Non Profit</a></li>
-						<li><a href="#LeadershipBoard">Leadership Board</a></li>
-					</ul>
-			  </div>
+					  	<h3>duckface</h3>
 		  </div>
-		  
-			<div data-role="content">
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider9' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/duckface/main3.png" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/duckface/submission1.jpeg" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/duckface/submission2.jpeg" height="210" width="320" /></li>
+			</div>
 				<div>
-					<div style="text-align:center;"><a href="#HomeDepot">Home Depot</a></div>
-					<div style="text-align:center;"><a href="#Kraft">Kraft</a></div>
-					<div style="text-align:center;"><a href="#Nike">Nike</a></div>					
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
+				</div>
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
 				</div>
 			</div>
 		</div>
-
-		<div data-role="page" id="NonProfit">
+		<div data-role="page" id="Gooddeedshoppin">		 
 		  <div data-role="header">
-					  	<h3>Non Profit</h3>
-				<div data-role="navbar">
-					 <ul>
-						<li><a href="#Challenges">Challenges</a></li>
-						<li><a href="#Profile">Profile</a></li>
-						<li><a href="#Brands">Brands</a></li>
-						<li><a href="#NonProfit" class="ui-btn-active">Non Profit</a></li>
-						<li><a href="#LeadershipBoard">Leadership Board</a></li>
-					</ul>
-			  </div>
+					  	<h3>Good Deed</h3>
 		  </div>
-			<div data-role="content">
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider10' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/main6.png" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/submission1.jpeg" height="210" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/Gooddeedshoppin/submission2.jpeg" height="210" width="320" /></li>
+			</div>
 				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
+				</div>
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
 				</div>
 			</div>
 		</div>
-
-		<div data-role="page" id="LeadershipBoard">
+		<div data-role="page" id="twitterScavengerHunt">		 
 		  <div data-role="header">
-					  	<h3>Leadership Board</h3>
-				<div data-role="navbar">
-					 <ul>
-						<li><a href="#Challenges">Challenges</a></li>
-						<li><a href="#Profile">Profile</a></li>
-						<li><a href="#Brands">Brands</a></li>
-						<li><a href="#NonProfit">Non Profit</a></li>
-						<li><a href="#LeadershipBoard"  class="ui-btn-active">Leadership Board</a></li>
-					</ul>
-			  </div>
+					  	<h3>Scavenger Hunt</h3>
 		  </div>
-			<div data-role="content">
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider11' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/twitterScavengerHunt/main4.png" height="150" width="320" /></li>
+			</div>
 				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
+				</div>
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
+				</div>
+			</div>
+		</div>
+		<div data-role="page" id="guessYourSavings">		 
+		  <div data-role="header">
+					  	<h3>Guess Savings</h3>
+		  </div>
+			<div data-role="content" style="width: 320px; margin:0px 0px 0px -15px">
+			<div id='slider12' class='swipe'>
+			  <ul>
+				<li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li>
+				<li><img src="http://mobile.hoodhelp.in/challenges/guessYourSavings/main1.png" height="150" width="320" /></li>
+			</div>
+				<div>
+				<img style="display: block; margin-left: auto; margin-right: auto" src="http://mobile.hoodhelp.in/general/walmartdesc.png" height="130" width="290" />				
+				</div>
+		        <input type="button" class="send-image" value="take a photo" />
+		        <input type="button" class="send-image" value="choose a photo" />
+				<div class="DynamicContent">
 				</div>
 			</div>
 		</div>
@@ -367,6 +474,15 @@
 new Swipe(document.getElementById('slider1'));
 new Swipe(document.getElementById('slider2'));
 new Swipe(document.getElementById('slider3'));
+new Swipe(document.getElementById('slider4'));
+new Swipe(document.getElementById('slider5'));
+new Swipe(document.getElementById('slider6'));
+new Swipe(document.getElementById('slider7'));
+new Swipe(document.getElementById('slider8'));
+new Swipe(document.getElementById('slider9'));
+new Swipe(document.getElementById('slider10'));
+new Swipe(document.getElementById('slider11'));
+new Swipe(document.getElementById('slider12'));
 </script>
   </body>
 </html>
