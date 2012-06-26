@@ -23,38 +23,46 @@
 			src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
 			
 			// Aquire the image -> Phonegap API
-			navigator.camera.getPicture(success, fail, {quality: 45, sourceType: src});
-			
-			// Successfully aquired image data -> base64 encoded string of the image file
-			function success(imageData) {
-				var url = 'http://www.mysite.com/API/mobileImageUpload.php';
-				var params = {image: imageData};
-				
-				// send the data
-				$.post(url, params, function(data) {
-					
-					// Display the selected image on send complete
-					$('#image').attr('src', 'data:image/jpeg;base64,' + params['image']);
-					
-				});
-			}
-			
-			function fail(message) { alert(message); }
+			navigator.camera.getPicture(
+                getPicture_Success, 
+                getPicture_Error, 
+                {
+                    quality: 45, 
+                    sourceType:src,  
+                    destinationType: 0
+                }
+            );			
 		}
                       
         function getPicture_Success(imageData)
-        { 
-            $.get("http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?Pictures_Photo_Add", { 
-                  BuddyApplicationName: "DareApp", 
-                  BuddyApplicationPassword: "0F5CD278-E31F-4DE7-8466-98F5EFAD82D1",
-                  UserToken: "UT-86203995-50f5-4663-a376-e20e99ba4692",
-                  bytesFullPhotoData: imageData,
-                  AlbumID: "699355",
-                  PhotoComment: "demo",
-                  Latitude: "47.36",
-                  Longitude: "122.19"
-            });
-        } 
+        {                                   
+            var request = $.ajax({
+                 type: "POST",
+                 url: "http://webservice.buddyplatform.com/Service/v1/BuddyService.ashx?Pictures_Photo_Add",
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                 dataType: "text",
+                 success: uploadPicture_Success,
+                 error: uploadPicture_Error,                
+                 data: {
+                     BuddyApplicationName:"DareApp",
+                     BuddyApplicationPassword:"0F5CD278-E31F-4DE7-8466-98F5EFAD82D1",
+                     UserToken:"UT-86203995-50f5-4663-a376-e20e99ba4692",
+                     bytesFullPhotoData:imageData,
+                     AlbumID:"699355",
+                     PhotoComment:"demo",
+                     Latitude:"0",
+                     Longitude:"0"
+                 }
+             });                                            
+        }                       
+        function getPicture_Error(error){}   
+                                            
+        function uploadPicture_Success(pictureId)
+        {
+           // Todo: Save the image info somewhere
+           navigator.notification.alert("File Uploaded: " + pictureId);  
+        }
+        function uploadPicture_Error(error){}
 		
 		$('.send-image').click(function () { sendImage($(this).val()); }); 
 	});
